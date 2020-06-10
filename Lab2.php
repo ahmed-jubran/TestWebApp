@@ -20,16 +20,16 @@
 <th>03-22441234</th>
 </tr>
 	<?php   
-     $serverName = "sqlahmeddb.database.windows.net";
-	 $connectionOptions = array(
-	 "Database" => "AhmedDB ",
-	 "Uid" => "TP045739",
-	 "PWD" => "Ahmad200920093");
+   $connectionInfo = array("UID" => "TP045739", "pwd" => "Ahmad200920093", "Database" => "AhmedDB", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
+$serverName = "tcp:sqlahmeddb.database.windows.net,1433";
+$conn = sqlsrv_connect($serverName, $connectionInfo);
 	 //Establishes the connection
-	 $conn = sqlsrv_connect($serverName, $connectionOptions);
-	 if (!$conn) {
-		 die("Error connection: ".sqlsrv_errors());
-		 }
+	  if(!$conn)
+  {
+    die("Error connection: ".sqlsrv_errors());
+  }
+  echo "Connection to Db: Success!";
+	
 		 $tsql= "SELECT * FROM [dbo].[restaurant]";
 		 $getResults= sqlsrv_query($conn, $tsql);
 		 if ($getResults == FALSE)
